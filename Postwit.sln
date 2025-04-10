@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B5F8D160-76D3-4534-BAFE-7BD90BEFB137}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.Api", "src\Postwit.Api\Postwit.Api\Postwit.Api.csproj", "{3AD7D537-3F20-46A1-A9D3-6F4A63D05E43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.Application", "src\Postwit.Application\Postwit.Application.csproj", "{CFD1B735-5445-43B6-A222-CE639E01759A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.Domain", "src\Postwit.Domain\Postwit.Domain.csproj", "{2CCD4DA8-DA59-4452-BFDB-7093A55C646C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.Infrastructure", "src\Postwit.Infrastructure\Postwit.Infrastructure.csproj", "{78E46F0A-B3B3-4140-8F29-F65058DAB12E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AD7D537-3F20-46A1-A9D3-6F4A63D05E43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AD7D537-3F20-46A1-A9D3-6F4A63D05E43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AD7D537-3F20-46A1-A9D3-6F4A63D05E43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AD7D537-3F20-46A1-A9D3-6F4A63D05E43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFD1B735-5445-43B6-A222-CE639E01759A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFD1B735-5445-43B6-A222-CE639E01759A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFD1B735-5445-43B6-A222-CE639E01759A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFD1B735-5445-43B6-A222-CE639E01759A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CCD4DA8-DA59-4452-BFDB-7093A55C646C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CCD4DA8-DA59-4452-BFDB-7093A55C646C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CCD4DA8-DA59-4452-BFDB-7093A55C646C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CCD4DA8-DA59-4452-BFDB-7093A55C646C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78E46F0A-B3B3-4140-8F29-F65058DAB12E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78E46F0A-B3B3-4140-8F29-F65058DAB12E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78E46F0A-B3B3-4140-8F29-F65058DAB12E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78E46F0A-B3B3-4140-8F29-F65058DAB12E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3AD7D537-3F20-46A1-A9D3-6F4A63D05E43} = {B5F8D160-76D3-4534-BAFE-7BD90BEFB137}
+		{CFD1B735-5445-43B6-A222-CE639E01759A} = {B5F8D160-76D3-4534-BAFE-7BD90BEFB137}
+		{2CCD4DA8-DA59-4452-BFDB-7093A55C646C} = {B5F8D160-76D3-4534-BAFE-7BD90BEFB137}
+		{78E46F0A-B3B3-4140-8F29-F65058DAB12E} = {B5F8D160-76D3-4534-BAFE-7BD90BEFB137}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD45AE38-EEAE-47D9-8579-79DB47D7A356}
+	EndGlobalSection
+EndGlobal
