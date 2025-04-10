@@ -10,4 +10,9 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Postwit.Application\Postwit.Application.csproj" />
+    <ProjectReference Include="..\..\Postwit.Infrastructure\Postwit.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Postwit.Domain\Postwit.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
