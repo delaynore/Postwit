@@ -1,19 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35919.96 d17.13
+VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B5F8D160-76D3-4534-BAFE-7BD90BEFB137}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.Api", "src\Postwit.Api\Postwit.Api\Postwit.Api.csproj", "{3AD7D537-3F20-46A1-A9D3-6F4A63D05E43}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.Api", "src\Postwit.Api\Postwit.Api.csproj", "{3AD7D537-3F20-46A1-A9D3-6F4A63D05E43}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.Application", "src\Postwit.Application\Postwit.Application.csproj", "{CFD1B735-5445-43B6-A222-CE639E01759A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.Domain", "src\Postwit.Domain\Postwit.Domain.csproj", "{2CCD4DA8-DA59-4452-BFDB-7093A55C646C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.Infrastructure", "src\Postwit.Infrastructure\Postwit.Infrastructure.csproj", "{78E46F0A-B3B3-4140-8F29-F65058DAB12E}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +44,10 @@ Global
 		{78E46F0A-B3B3-4140-8F29-F65058DAB12E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78E46F0A-B3B3-4140-8F29-F65058DAB12E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78E46F0A-B3B3-4140-8F29-F65058DAB12E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
