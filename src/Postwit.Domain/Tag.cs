@@ -6,5 +6,9 @@ public sealed class Tag
 
     public required string Name { get; set; }
 
-    public string? Description { get; set; }
+    public string Description { get; set; } = string.Empty;
+
+    public DateTime CreatedAtUtc {  get; set; }
+
+    public DateTime? UpdatedAtUtc { get; set; }
 }

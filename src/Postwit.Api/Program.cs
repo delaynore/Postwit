@@ -2,6 +2,8 @@ using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Postwit.Application;
+using Postwit.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,10 @@ builder.Logging.AddOpenTelemetry(options =>
     options.IncludeScopes = true;
     options.IncludeFormattedMessage = true;
 });
+
+builder.Services
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
