@@ -22,6 +22,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.Infrastructure", "s
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\database.txt = scripts\database.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +62,7 @@ Global
 		{CFD1B735-5445-43B6-A222-CE639E01759A} = {B5F8D160-76D3-4534-BAFE-7BD90BEFB137}
 		{2CCD4DA8-DA59-4452-BFDB-7093A55C646C} = {B5F8D160-76D3-4534-BAFE-7BD90BEFB137}
 		{78E46F0A-B3B3-4140-8F29-F65058DAB12E} = {B5F8D160-76D3-4534-BAFE-7BD90BEFB137}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD45AE38-EEAE-47D9-8579-79DB47D7A356}

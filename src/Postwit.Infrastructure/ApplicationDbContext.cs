@@ -1,0 +1,22 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Postwit.Application;
+using Postwit.Domain;
+using Postwit.Infrastructure.Configurations;
+
+namespace Postwit.Infrastructure;
+
+public sealed class ApplicationDbContext : DbContext, IUnitOfWork, ITagRepository
+{
+    public DbSet<Tag> Tags => Set<Tag>();
+
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+        : base(options)
+    { }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.ApplyConfiguration(new TagConfiguration());
+    }
+}
