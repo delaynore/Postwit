@@ -8,7 +8,7 @@ internal static class TagsProjections
 {
     public static Expression<Func<Tag, TagResponse>> ToResponse()
     {
-        return t => new TagResponse(t.Id, t.Name, t.Description);
+        return t => new TagResponse(t.Id, t.Name, t.Description, t.CreatedAtUtc, t.UpdatedAtUtc);
     }
 }
 

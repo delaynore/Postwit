@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ErrorOr" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Postwit.DateTimeProvider\Postwit.DateTimeProvider.csproj" />
+  </ItemGroup>
+
 </Project>

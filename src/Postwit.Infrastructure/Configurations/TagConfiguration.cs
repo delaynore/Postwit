@@ -15,9 +15,9 @@ internal sealed class TagConfiguration : IEntityTypeConfiguration<Tag>
     {
         builder.HasKey(t => t.Id);
 
-        builder.Property(t => t.Name).IsRequired().HasMaxLength(64);
+        builder.Property(t => t.Name).IsRequired().HasMaxLength(Tag.MaxNameLength);
         builder.HasIndex(t => t.Name).IsUnique();
 
-        builder.Property(t => t.Description).HasMaxLength(512);
+        builder.Property(t => t.Description).HasMaxLength(Tag.MaxDescriptionLength);
     }
 }

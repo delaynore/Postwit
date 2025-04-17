@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Postwit.Application.Contracts.Tags;
 using Postwit.Application.Mappers;
+using Postwit.DateTimeProvider;
 using Postwit.Domain;
 
 namespace Postwit.Application;
@@ -10,12 +11,14 @@ public class TagService : ITagService
 {
     private readonly ITagRepository _tagRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IDateTimeProvider _dateTimeProvider;
 
 
-    public TagService(ITagRepository tagRepository, IUnitOfWork unitOfWork)
+    public TagService(ITagRepository tagRepository, IUnitOfWork unitOfWork, IDateTimeProvider dateTimeProvider)
     {
         _tagRepository = tagRepository;
         _unitOfWork = unitOfWork;
+        _dateTimeProvider = dateTimeProvider;
     }
 
     public async Task<ErrorOr<TagsCollectionResponse>> GetAll(CancellationToken cancellationToken)
@@ -44,15 +47,25 @@ public class TagService : ITagService
 
     public async Task<ErrorOr<TagResponse>> CreateTag(CreateTagRequest request, CancellationToken cancellationToken)
     {
-        var any = await _tagRepository.Tags.AnyAsync(t => t.Name == request.Name, cancellationToken);
+        var errorOrTag = Tag.Create(
+            Guid.CreateVersion7(), 
+            request.Name, 
+            request.Description, 
+            _dateTimeProvider);
+
+        if (errorOrTag.IsError)
+        {
+            return errorOrTag.Errors;
+        }
+
+        var tag = errorOrTag.Value;
+
+        var any = await _tagRepository.Tags.AnyAsync(t => t.Name == tag.Name, cancellationToken);
 
         if (any)
         {
             return Error.Conflict();
         }
-
-        var tag = request.ToEntity();
-        tag.CreatedAtUtc = DateTime.UtcNow;
 
         _tagRepository.Tags.Add(tag);
 
@@ -70,16 +83,19 @@ public class TagService : ITagService
             return Error.NotFound();
         }
 
-        var any = await _tagRepository.Tags.AnyAsync(t => t.Name == request.Name, cancellationToken);
+        var errorOr = tag.Update(request.Name, request.Description, _dateTimeProvider);
+
+        if (errorOr.IsError)
+        {
+            return errorOr.Errors;
+        }
+
+        var any = await _tagRepository.Tags.AnyAsync(t => t.Name == tag.Name, cancellationToken);
 
         if (any)
         {
             return Error.Conflict();
         }
-
-        tag.Name = request.Name;
-        tag.Description = request.Description;
-        tag.UpdatedAtUtc = DateTime.UtcNow;
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
