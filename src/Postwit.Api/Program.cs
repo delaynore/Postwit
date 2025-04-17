@@ -3,6 +3,7 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Postwit.Application;
+using Postwit.DateTimeProvider;
 using Postwit.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,7 +30,8 @@ builder.Logging.AddOpenTelemetry(options =>
 
 builder.Services
     .AddApplication()
-    .AddInfrastructure(builder.Configuration);
+    .AddInfrastructure(builder.Configuration)
+    .AddDateTimeProvider();
 
 var app = builder.Build();
 

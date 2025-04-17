@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Postwit.Application\Postwit.Application.csproj" />
+    <ProjectReference Include="..\Postwit.DateTimeProvider\Postwit.DateTimeProvider.csproj" />
     <ProjectReference Include="..\Postwit.Infrastructure\Postwit.Infrastructure.csproj" />
   </ItemGroup>
 
