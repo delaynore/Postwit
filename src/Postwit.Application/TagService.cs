@@ -18,6 +18,30 @@ public class TagService : ITagService
         _unitOfWork = unitOfWork;
     }
 
+    public async Task<ErrorOr<TagsCollectionResponse>> GetAll(CancellationToken cancellationToken)
+    {
+        var tags = await _tagRepository.Tags
+            .Select(TagsProjections.ToResponse())
+            .ToListAsync(cancellationToken);
+
+        return new TagsCollectionResponse(tags);
+    }
+
+    public async Task<ErrorOr<TagResponse>> GetById(Guid tagId, CancellationToken cancellationToken)
+    {
+        var tag = await _tagRepository.Tags
+            .Where(t => t.Id == tagId)
+            .Select(TagsProjections.ToResponse())
+            .SingleOrDefaultAsync(cancellationToken);
+
+        if (tag is null)
+        {
+            return Error.NotFound();
+        }
+
+        return tag;
+    }
+
     public async Task<ErrorOr<TagResponse>> CreateTag(CreateTagRequest request, CancellationToken cancellationToken)
     {
         var any = await _tagRepository.Tags.AnyAsync(t => t.Name == request.Name, cancellationToken);

@@ -6,6 +6,10 @@ namespace Postwit.Application;
 
 public interface ITagService
 {
+    Task<ErrorOr<TagResponse>> GetById(Guid tagId, CancellationToken cancellationToken);
+
+    Task<ErrorOr<TagsCollectionResponse>> GetAll(CancellationToken cancellationToken);
+
     Task<ErrorOr<TagResponse>> CreateTag(CreateTagRequest request, CancellationToken cancellationToken);
 
     Task<ErrorOr<TagResponse>> UpdateTag(Guid tagId, UpdateTagRequest request, CancellationToken cancellationToken);

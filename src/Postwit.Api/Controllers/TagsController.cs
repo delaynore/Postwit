@@ -15,6 +15,26 @@ public sealed class TagsController : ControllerBase
         _tagService = tagService;
     }
 
+    [HttpGet("{tagId}")]
+    public async Task<IResult> GetById(Guid tagId, CancellationToken cancellationToken)
+    {
+        var errorOr = await _tagService.GetById(tagId, cancellationToken);
+
+        return errorOr.Match(
+            s => Results.Ok(s),
+            e => Results.NotFound(e));
+    }
+
+    [HttpGet]
+    public async Task<IResult> GetAll(CancellationToken cancellationToken)
+    {
+        var errorOr = await _tagService.GetAll(cancellationToken);
+
+        return errorOr.Match(
+            s => Results.Ok(s),
+            e => Results.NotFound(e));
+    }
+
     [HttpPost]
     public async Task<IResult> CreateTag(CreateTagRequest request, CancellationToken cancellationToken)
     {
