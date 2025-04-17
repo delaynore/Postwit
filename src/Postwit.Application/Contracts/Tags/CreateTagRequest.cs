@@ -1,3 +1,3 @@
 ﻿namespace Postwit.Application.Contracts.Tags;
 
-public record CreateTagRequest(string Name, string Description);
+public sealed record CreateTagRequest(string Name, string Description);

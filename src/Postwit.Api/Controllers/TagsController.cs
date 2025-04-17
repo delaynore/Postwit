@@ -22,4 +22,14 @@ public sealed class TagsController : ControllerBase
 
         return Results.Ok(tag);
     }
+
+    [HttpPut("{tagId}")]
+    public async Task<IResult> CreateTag(Guid tagId, UpdateTagRequest request, CancellationToken cancellationToken)
+    {
+        var errorOr = await _tagService.UpdateTag(tagId, request, cancellationToken);
+
+        return errorOr.Match(
+            s => Results.Ok(s), 
+            e => Results.BadRequest(e));
+    }
 }

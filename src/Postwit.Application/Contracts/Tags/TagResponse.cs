@@ -1,3 +1,3 @@
 ﻿namespace Postwit.Application.Contracts.Tags;
 
-public record TagResponse(Guid Id, string Name, string Description);
+public sealed record TagResponse(Guid Id, string Name, string Description);
