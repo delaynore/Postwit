@@ -18,8 +18,15 @@ public class TagService : ITagService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<TagResponse> CreateTag(CreateTagRequest request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<TagResponse>> CreateTag(CreateTagRequest request, CancellationToken cancellationToken)
     {
+        var any = await _tagRepository.Tags.AnyAsync(t => t.Name == request.Name, cancellationToken);
+
+        if (any)
+        {
+            return Error.Conflict();
+        }
+
         var tag = request.ToEntity();
         tag.CreatedAtUtc = DateTime.UtcNow;
 

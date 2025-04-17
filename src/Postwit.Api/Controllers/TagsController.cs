@@ -18,9 +18,11 @@ public sealed class TagsController : ControllerBase
     [HttpPost]
     public async Task<IResult> CreateTag(CreateTagRequest request, CancellationToken cancellationToken)
     {
-        var tag = await _tagService.CreateTag(request, cancellationToken);
+        var errorOr = await _tagService.CreateTag(request, cancellationToken);
 
-        return Results.Ok(tag);
+        return errorOr.Match(
+            s => Results.Ok(s),
+            e => Results.BadRequest(e));
     }
 
     [HttpPut("{tagId}")]
