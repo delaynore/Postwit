@@ -19,4 +19,13 @@ public sealed class Article
     public DateTime CreatedAtUtc { get; set; }
 
     public DateTime UpdatedAtUtc { get; set; }
+
+    public ArticleStatus Status { get; set; }
+}
+
+public enum ArticleStatus
+{
+    None = 0,
+    Drafted = 1,
+    Published = 2,
 }
