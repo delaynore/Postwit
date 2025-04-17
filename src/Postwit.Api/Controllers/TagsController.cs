@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Postwit.Application;
+using Postwit.Application.Contracts.Tags;
 
 namespace Postwit.Api.Controllers;
 
@@ -15,9 +16,9 @@ public sealed class TagsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IResult> CreateTag(CreateTagRequest request)
+    public async Task<IResult> CreateTag(CreateTagRequest request, CancellationToken cancellationToken)
     {
-        var tag = await _tagService.CreateTag(request);
+        var tag = await _tagService.CreateTag(request, cancellationToken);
 
         return Results.Ok(tag);
     }

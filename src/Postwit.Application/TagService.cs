@@ -1,4 +1,5 @@
-﻿using Postwit.Application.Mappers;
+﻿using Postwit.Application.Contracts.Tags;
+using Postwit.Application.Mappers;
 using Postwit.Domain;
 
 namespace Postwit.Application;
@@ -15,14 +16,14 @@ public class TagService : ITagService
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<TagResponse> CreateTag(CreateTagRequest request)
+    public async Task<TagResponse> CreateTag(CreateTagRequest request, CancellationToken cancellationToken)
     {
         var tag = request.ToEntity();
         tag.CreatedAtUtc = DateTime.UtcNow;
 
         _tagRepository.Tags.Add(tag);
 
-        await _unitOfWork.SaveChangesAsync(default);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return tag.ToResponse();
     }

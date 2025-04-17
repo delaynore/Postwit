@@ -1,13 +1,10 @@
-﻿using Postwit.Domain;
+﻿using Postwit.Application.Contracts.Tags;
+using Postwit.Domain;
 
 namespace Postwit.Application;
 
 public interface ITagService
 {
-    Task<TagResponse> CreateTag(CreateTagRequest request);
+    Task<TagResponse> CreateTag(CreateTagRequest request, CancellationToken cancellationToken);
 
 }
-
-public record CreateTagRequest(string Name, string Description);
-
-public record TagResponse(Guid Id, string Name, string Description);
