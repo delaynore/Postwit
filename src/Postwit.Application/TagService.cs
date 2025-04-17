@@ -85,4 +85,13 @@ public class TagService : ITagService
 
         return tag.ToResponse();   
     }
+
+    public async Task<Deleted> DeleteTag(Guid tagId, CancellationToken cancellationToken)
+    {
+        await _tagRepository.Tags.Where(t => t.Id == tagId).ExecuteDeleteAsync(cancellationToken);
+
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        return Result.Deleted;
+    }
 }

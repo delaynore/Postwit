@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ErrorOr;
+using Microsoft.AspNetCore.Mvc;
 using Postwit.Application;
 using Postwit.Application.Contracts.Tags;
 
@@ -53,5 +54,13 @@ public sealed class TagsController : ControllerBase
         return errorOr.Match(
             s => Results.Ok(s), 
             e => Results.BadRequest(e));
+    }
+
+    [HttpDelete("{tagId}")]
+    public async Task<IResult> DeleteTag(Guid tagId, CancellationToken cancellationToken)
+    {
+        await _tagService.DeleteTag(tagId, cancellationToken);
+        
+        return Results.NoContent();
     }
 }

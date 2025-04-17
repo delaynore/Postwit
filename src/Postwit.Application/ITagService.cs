@@ -14,4 +14,5 @@ public interface ITagService
 
     Task<ErrorOr<TagResponse>> UpdateTag(Guid tagId, UpdateTagRequest request, CancellationToken cancellationToken);
 
+    Task<Deleted> DeleteTag(Guid tagId, CancellationToken cancellationToken);
 }
