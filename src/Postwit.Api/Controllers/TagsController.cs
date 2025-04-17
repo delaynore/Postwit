@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ErrorOr;
+using Microsoft.AspNetCore.Mvc;
 using Postwit.Application;
+using Postwit.Application.Contracts.Tags;
 
 namespace Postwit.Api.Controllers;
 
@@ -14,11 +16,51 @@ public sealed class TagsController : ControllerBase
         _tagService = tagService;
     }
 
-    [HttpPost]
-    public async Task<IResult> CreateTag(CreateTagRequest request)
+    [HttpGet("{tagId}")]
+    public async Task<IResult> GetById(Guid tagId, CancellationToken cancellationToken)
     {
-        var tag = await _tagService.CreateTag(request);
+        var errorOr = await _tagService.GetById(tagId, cancellationToken);
 
-        return Results.Ok(tag);
+        return errorOr.Match(
+            s => Results.Ok(s),
+            e => Results.NotFound(e));
+    }
+
+    [HttpGet]
+    public async Task<IResult> GetAll(CancellationToken cancellationToken)
+    {
+        var errorOr = await _tagService.GetAll(cancellationToken);
+
+        return errorOr.Match(
+            s => Results.Ok(s),
+            e => Results.NotFound(e));
+    }
+
+    [HttpPost]
+    public async Task<IResult> CreateTag(CreateTagRequest request, CancellationToken cancellationToken)
+    {
+        var errorOr = await _tagService.CreateTag(request, cancellationToken);
+
+        return errorOr.Match(
+            s => Results.Ok(s),
+            e => Results.BadRequest(e));
+    }
+
+    [HttpPut("{tagId}")]
+    public async Task<IResult> CreateTag(Guid tagId, UpdateTagRequest request, CancellationToken cancellationToken)
+    {
+        var errorOr = await _tagService.UpdateTag(tagId, request, cancellationToken);
+
+        return errorOr.Match(
+            s => Results.Ok(s), 
+            e => Results.BadRequest(e));
+    }
+
+    [HttpDelete("{tagId}")]
+    public async Task<IResult> DeleteTag(Guid tagId, CancellationToken cancellationToken)
+    {
+        await _tagService.DeleteTag(tagId, cancellationToken);
+        
+        return Results.NoContent();
     }
 }

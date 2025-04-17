@@ -5,7 +5,7 @@ using Postwit.Infrastructure.Configurations;
 
 namespace Postwit.Infrastructure;
 
-public sealed class ApplicationDbContext : DbContext, IUnitOfWork, ITagRepository
+internal sealed class ApplicationDbContext : DbContext, IUnitOfWork, ITagRepository
 {
     public DbSet<Tag> Tags => Set<Tag>();
 

@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{02EA
 		scripts\database.txt = scripts\database.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.DateTimeProvider", "src\Postwit.DateTimeProvider\Postwit.DateTimeProvider.csproj", "{DB789F85-8B5C-4E17-AFF6-DB99193F4CAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB789F85-8B5C-4E17-AFF6-DB99193F4CAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB789F85-8B5C-4E17-AFF6-DB99193F4CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB789F85-8B5C-4E17-AFF6-DB99193F4CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB789F85-8B5C-4E17-AFF6-DB99193F4CAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{2CCD4DA8-DA59-4452-BFDB-7093A55C646C} = {B5F8D160-76D3-4534-BAFE-7BD90BEFB137}
 		{78E46F0A-B3B3-4140-8F29-F65058DAB12E} = {B5F8D160-76D3-4534-BAFE-7BD90BEFB137}
 		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
+		{DB789F85-8B5C-4E17-AFF6-DB99193F4CAE} = {B5F8D160-76D3-4534-BAFE-7BD90BEFB137}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD45AE38-EEAE-47D9-8579-79DB47D7A356}
