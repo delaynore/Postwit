@@ -20,6 +20,6 @@ internal sealed class ApplicationDbContext : DbContext, IUnitOfWork, ITagReposit
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new TagConfiguration());
-        modelBuilder.ApplyConfiguration(new ArticleConfiguration())
+        modelBuilder.ApplyConfiguration(new ArticleConfiguration());
     }
 }
