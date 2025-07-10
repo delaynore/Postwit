@@ -31,12 +31,18 @@ public sealed class Article
 
     public ArticleStatus Status { get; set; }
 
-    public List<Tag> Tags { get; private set; }
+    private readonly List<Guid> _tagsIds = [];
+
+    public IReadOnlyCollection<Guid> TagsIds => _tagsIds;
+
+    private readonly List<Guid> _filesIds = [];
+
+    public IReadOnlyCollection<Guid> FilesIds => _filesIds;
 
     private Article()
     { }
 
-    public ErrorOr<Article> Create(
+    public static ErrorOr<Article> Create(
         Guid articleId,
         Guid authorId, 
         string title,
@@ -67,13 +73,13 @@ public sealed class Article
         };
     }
 
-    private TimeSpan CalculateReadTime(string content)
+    private static TimeSpan CalculateReadTime(string content)
     {
         const int AverageReadCharactersPerMinute = 500;
         return TimeSpan.FromMinutes((double) content.Length / AverageReadCharactersPerMinute);
     }
 
-    private List<Error> Validate(string title, string content, ArticleStatus articleStatus)
+    private static List<Error> Validate(string title, string content, ArticleStatus articleStatus)
     {
         List<Error> errors = [];
 
@@ -95,9 +101,9 @@ public sealed class Article
         return errors;
     }
 
-    private readonly char[] ReplaceableChars = @"`~!@#$%^&*()+=_\|]}[{;:'""/.>,<?".ToCharArray();
+    private static readonly char[] ReplaceableChars = @" `~!@#$%^&*()+=_\|]}[{;:'""/.>,<?".ToCharArray();
 
-    private string GenerateSlug(string title)
+    private static string GenerateSlug(string title)
     {
         var titleSplit = title.AsSpan().SplitAny(ReplaceableChars);
         var slug = new StringBuilder(title.Length);
@@ -110,7 +116,7 @@ public sealed class Article
             slug.Append(title[range]);
             slug.Append('-');
         }
-
+        slug.Remove(slug.Length - 1, 1);
         return slug.ToString();
     }
 }
