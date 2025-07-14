@@ -27,14 +27,14 @@ public sealed class PublishArticleHandler : ICommandHandler<PublishArticleComman
         var dto = command.ArticleDto;
         var articleId = Guid.CreateVersion7();
 
-        var errorOrArticle = Article.Create(articleId, 
-            userId, 
-            dto.Title, 
+        var errorOrArticle = Article.Create(articleId,
+            userId,
+            dto.Title,
             dto.Content,
-            default, 
-            ArticleStatus.Published, 
+            default,
+            ArticleStatus.Published,
             _dateTimeProvider);
-        
+
         if (errorOrArticle.IsError)
         {
             return errorOrArticle.Errors;

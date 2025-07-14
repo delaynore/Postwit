@@ -13,8 +13,8 @@ public sealed class PublishDraftedArticleCommandHandler : ICommandHandler<Publis
     private readonly IDateTimeProvider _dateTimeProvider;
 
     public PublishDraftedArticleCommandHandler(
-        IArticleRepository articleRepository, 
-        IUnitOfWork unitOfWork, 
+        IArticleRepository articleRepository,
+        IUnitOfWork unitOfWork,
         IDateTimeProvider dateTimeProvider)
     {
         _articleRepository = articleRepository;
@@ -42,7 +42,7 @@ public sealed class PublishDraftedArticleCommandHandler : ICommandHandler<Publis
         {
             return Error.Failure("not existed status");
         }
-        
+
         article.Status = ArticleStatus.Published;
         article.UpdatedAtUtc = _dateTimeProvider.UtcNow;
 

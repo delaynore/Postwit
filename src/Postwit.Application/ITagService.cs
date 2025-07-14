@@ -1,6 +1,5 @@
 ﻿using ErrorOr;
 using Postwit.Application.Contracts.Tags;
-using Postwit.Domain;
 
 namespace Postwit.Application;
 

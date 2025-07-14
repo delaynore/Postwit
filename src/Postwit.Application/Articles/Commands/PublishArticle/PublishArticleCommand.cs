@@ -3,4 +3,4 @@ using Postwit.Application.Contracts.Articles;
 
 namespace Postwit.Application.Articles.Commands.PublishArticle;
 
-public sealed record PublishArticleCommand(CreateArticleDto ArticleDto): ICommand;
+public sealed record PublishArticleCommand(CreateArticleDto ArticleDto) : ICommand;
