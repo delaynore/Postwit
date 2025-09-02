@@ -19,6 +19,7 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork>(c => c.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<ITagRepository>(c => c.GetRequiredService<ApplicationDbContext>());
+        services.AddScoped<IArticleRepository>(c => c.GetRequiredService<ApplicationDbContext>());
 
         return services;
     }

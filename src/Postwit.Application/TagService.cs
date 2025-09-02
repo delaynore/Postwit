@@ -48,9 +48,9 @@ public class TagService : ITagService
     public async Task<ErrorOr<TagResponse>> CreateTag(CreateTagRequest request, CancellationToken cancellationToken)
     {
         var errorOrTag = Tag.Create(
-            Guid.CreateVersion7(), 
-            request.Name, 
-            request.Description, 
+            Guid.CreateVersion7(),
+            request.Name,
+            request.Description,
             _dateTimeProvider);
 
         if (errorOrTag.IsError)
@@ -99,7 +99,7 @@ public class TagService : ITagService
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return tag.ToResponse();   
+        return tag.ToResponse();
     }
 
     public async Task<Deleted> DeleteTag(Guid tagId, CancellationToken cancellationToken)

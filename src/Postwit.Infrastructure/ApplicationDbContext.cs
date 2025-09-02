@@ -5,9 +5,11 @@ using Postwit.Infrastructure.Configurations;
 
 namespace Postwit.Infrastructure;
 
-internal sealed class ApplicationDbContext : DbContext, IUnitOfWork, ITagRepository
+internal sealed class ApplicationDbContext : DbContext, IUnitOfWork, ITagRepository, IArticleRepository
 {
     public DbSet<Tag> Tags => Set<Tag>();
+
+    public DbSet<Article> Articles => Set<Article>();
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
         : base(options)
@@ -18,5 +20,6 @@ internal sealed class ApplicationDbContext : DbContext, IUnitOfWork, ITagReposit
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfiguration(new TagConfiguration());
+        modelBuilder.ApplyConfiguration(new ArticleConfiguration());
     }
 }
