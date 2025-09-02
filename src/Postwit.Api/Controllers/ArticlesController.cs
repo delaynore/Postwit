@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ErrorOr;
+using Microsoft.AspNetCore.Mvc;
 using Postwit.Application.Abstactions;
+using Postwit.Application.Articles.Commands.DeleteArticle;
 using Postwit.Application.Articles.Commands.PublishArticle;
 using Postwit.Application.Articles.Commands.PublishDraftedArticle;
 using Postwit.Application.Articles.Commands.UpdateArticle;
+using Postwit.Application.Articles.Queries.GetArticle;
 using Postwit.Application.Contracts.Articles;
 
 namespace Postwit.Api.Controllers;
@@ -11,6 +14,16 @@ namespace Postwit.Api.Controllers;
 [Route("api/articles")]
 public sealed class ArticlesController : ControllerBase
 {
+    [HttpGet("{idOrSlug}")]
+    public async Task<IResult> GetArticle([FromRoute] string idOrSlug,
+        [FromServices] IQueryHandler<GetArticleQuery, ErrorOr<ArticleDto>> handler,
+        CancellationToken cancellationToken)
+    {
+        var result = await handler.Handle(new GetArticleQuery(idOrSlug), cancellationToken);
+
+        return result.Match(Results.Ok, Results.NotFound);
+    }
+    
     [HttpPost]
     public async Task<IResult> PublishArticle(
         [FromBody] CreateArticleDto dto,
@@ -47,6 +60,21 @@ public sealed class ArticlesController : ControllerBase
         CancellationToken cancellationToken)
     {
         var command = new UpdateArticleCommand(articleId, dto);
+
+        var result = await handler.Handle(command, cancellationToken);
+
+        return result.Match(
+            s => Results.Ok(),
+            e => Results.BadRequest(e));
+    }
+
+    [HttpDelete("{articleId}")]
+    public async Task<IResult> DeleteArticle(
+       [FromRoute] Guid articleId,
+       [FromServices] ICommandHandler<DeleteArticleCommand> handler,
+       CancellationToken cancellationToken)
+    {
+        var command = new DeleteArticleCommand(articleId);
 
         var result = await handler.Handle(command, cancellationToken);
 

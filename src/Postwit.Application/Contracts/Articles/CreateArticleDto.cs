@@ -1,3 +1,3 @@
 ﻿namespace Postwit.Application.Contracts.Articles;
 
-public record CreateArticleDto(string Title, string Content);
+public sealed record CreateArticleDto(string Title, string Content);
