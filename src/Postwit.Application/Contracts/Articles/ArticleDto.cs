@@ -10,13 +10,3 @@ public sealed record ArticleDto(
     TimeSpan ReadTime,
     DateTime CreatedAtUtc,
     IEnumerable<Guid> TagsIds);
-
-public sealed record ArticleResponse(
-    Guid Id,
-    string Title,
-    string Content,
-    Guid AuthorId,
-    TimeSpan ReadTime,
-    DateTime CreatedAtUtc,
-    IEnumerable<TagResponse> TagsIds);
-

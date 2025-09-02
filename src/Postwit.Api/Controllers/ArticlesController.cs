@@ -6,6 +6,7 @@ using Postwit.Application.Articles.Commands.PublishArticle;
 using Postwit.Application.Articles.Commands.PublishDraftedArticle;
 using Postwit.Application.Articles.Commands.UpdateArticle;
 using Postwit.Application.Articles.Queries.GetArticle;
+using Postwit.Application.Articles.Queries.GetArticles;
 using Postwit.Application.Contracts.Articles;
 
 namespace Postwit.Api.Controllers;
@@ -14,6 +15,16 @@ namespace Postwit.Api.Controllers;
 [Route("api/articles")]
 public sealed class ArticlesController : ControllerBase
 {
+    [HttpGet]
+    public async Task<IResult> GetArticle(
+        [FromServices] IQueryHandler<GetArticlesQuery, ArticleListResponse> handler,
+        CancellationToken cancellationToken)
+    {
+        var result = await handler.Handle(new GetArticlesQuery(), cancellationToken);
+
+        return Results.Ok(result);
+    }
+    
     [HttpGet("{idOrSlug}")]
     public async Task<IResult> GetArticle([FromRoute] string idOrSlug,
         [FromServices] IQueryHandler<GetArticleQuery, ErrorOr<ArticleDto>> handler,
