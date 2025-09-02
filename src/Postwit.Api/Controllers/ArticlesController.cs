@@ -43,9 +43,7 @@ public sealed class ArticlesController : ControllerBase
     {
         var result = await handler.Handle(new PublishArticleCommand(dto), cancellationToken);
 
-        return result.Match(
-             s => Results.Ok(s),
-             e => Results.BadRequest(e));
+        return result.Match(Results.Ok, Results.BadRequest);
     }
 
     [HttpPut("{articleId}/publish")]
@@ -58,9 +56,7 @@ public sealed class ArticlesController : ControllerBase
 
         var result = await handler.Handle(command, cancellationToken);
 
-        return result.Match(
-            s => Results.Ok(),
-            e => Results.BadRequest(e));
+        return result.Match(Results.Ok, Results.BadRequest);
     }
 
     [HttpPut("{articleId}")]
@@ -74,9 +70,7 @@ public sealed class ArticlesController : ControllerBase
 
         var result = await handler.Handle(command, cancellationToken);
 
-        return result.Match(
-            s => Results.Ok(),
-            e => Results.BadRequest(e));
+        return result.Match(Results.Ok, Results.BadRequest);
     }
 
     [HttpDelete("{articleId}")]
@@ -89,8 +83,6 @@ public sealed class ArticlesController : ControllerBase
 
         var result = await handler.Handle(command, cancellationToken);
 
-        return result.Match(
-            s => Results.Ok(),
-            e => Results.BadRequest(e));
+        return result.Match(Results.Ok, Results.BadRequest);
     }
 }
