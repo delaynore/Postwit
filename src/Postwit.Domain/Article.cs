@@ -1,5 +1,4 @@
-﻿using System.Text;
-using ErrorOr;
+﻿using ErrorOr;
 using Postwit.DateTimeProvider;
 
 namespace Postwit.Domain;
@@ -47,6 +46,7 @@ public sealed class Article
         Guid authorId, 
         string title,
         string content, 
+        string slug,
         string? previewImageUrl,
         ArticleStatus status,
         IDateTimeProvider dateTimeProvider)
@@ -69,7 +69,7 @@ public sealed class Article
             Status = status,
             CreatedAtUtc = dateTimeProvider.UtcNow,
             ReadTime = CalculateReadTime(content),
-            Slug = GenerateSlug(title)
+            Slug = slug
         };
     }
 
@@ -99,25 +99,6 @@ public sealed class Article
         }
 
         return errors;
-    }
-
-    private static readonly char[] ReplaceableChars = @" `~!@#$%^&*()+=_\|]}[{;:'""/.>,<?".ToCharArray();
-
-    private static string GenerateSlug(string title)
-    {
-        var titleSplit = title.AsSpan().SplitAny(ReplaceableChars);
-        var slug = new StringBuilder(title.Length);
-        foreach (var range in titleSplit)
-        {
-            if (string.IsNullOrWhiteSpace(title[range]))
-            {
-                continue;
-            }
-            slug.Append(title[range]);
-            slug.Append('-');
-        }
-        slug.Remove(slug.Length - 1, 1);
-        return slug.ToString();
     }
 }
 

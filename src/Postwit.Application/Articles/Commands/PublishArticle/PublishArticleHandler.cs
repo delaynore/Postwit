@@ -9,13 +9,16 @@ public sealed class PublishArticleHandler : ICommandHandler<PublishArticleComman
 {
     private readonly IArticlesRepository _repository;
     private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly ISlugGenerator _slugGenerator;
 
     public PublishArticleHandler(
         IArticlesRepository repository, 
-        IDateTimeProvider dateTimeProvider)
+        IDateTimeProvider dateTimeProvider,
+        ISlugGenerator slugGenerator)
     {
         _repository = repository;
         _dateTimeProvider = dateTimeProvider;
+        _slugGenerator = slugGenerator;
     }
 
     public async Task<ErrorOr<Guid>> Handle(PublishArticleCommand command, CancellationToken cancellationToken)
@@ -31,6 +34,7 @@ public sealed class PublishArticleHandler : ICommandHandler<PublishArticleComman
             userId,
             dto.Title,
             dto.Content,
+            _slugGenerator.GenerateSlug(dto.Title),
             null,
             ArticleStatus.Published,
             _dateTimeProvider);
