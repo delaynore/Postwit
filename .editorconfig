@@ -5,11 +5,8 @@ root = true
 indent_style = space
 end_of_line = crlf
 
-[*.props]
-indent_size = 2
-
 # Xml files
-[*.{xml,yml}]
+[*.{xml,yml,props,csproj}]
 indent_size = 2
 
 # C# files
