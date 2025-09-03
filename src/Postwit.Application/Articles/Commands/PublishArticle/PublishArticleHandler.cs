@@ -7,14 +7,14 @@ namespace Postwit.Application.Articles.Commands.PublishArticle;
 
 public sealed class PublishArticleHandler : ICommandHandler<PublishArticleCommand, Guid>
 {
-    private readonly IArticleRepository _repository;
-    private readonly IUnitOfWork _uof;
+    private readonly IArticlesRepository _repository;
     private readonly IDateTimeProvider _dateTimeProvider;
 
-    public PublishArticleHandler(IArticleRepository repository, IUnitOfWork uof, IDateTimeProvider dateTimeProvider)
+    public PublishArticleHandler(
+        IArticlesRepository repository, 
+        IDateTimeProvider dateTimeProvider)
     {
         _repository = repository;
-        _uof = uof;
         _dateTimeProvider = dateTimeProvider;
     }
 
@@ -31,7 +31,7 @@ public sealed class PublishArticleHandler : ICommandHandler<PublishArticleComman
             userId,
             dto.Title,
             dto.Content,
-            default,
+            null,
             ArticleStatus.Published,
             _dateTimeProvider);
 
@@ -40,8 +40,8 @@ public sealed class PublishArticleHandler : ICommandHandler<PublishArticleComman
             return errorOrArticle.Errors;
         }
 
-        await _repository.Articles.AddAsync(errorOrArticle.Value, cancellationToken);
-        await _uof.SaveChangesAsync(cancellationToken);
+        await _repository.AddAsync(errorOrArticle.Value, cancellationToken);
+        await _repository.SaveChangesAsync(cancellationToken);
 
         // send notifications
 

@@ -5,25 +5,27 @@ using Postwit.Application.Mappers;
 using Postwit.DateTimeProvider;
 using Postwit.Domain;
 
-namespace Postwit.Application;
+namespace Postwit.Application.Tags;
 
-public class TagService : ITagService
+public class TagsService : ITagsService
 {
-    private readonly ITagRepository _tagRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly ITagsRepository _tagsRepository;
+    private readonly IReadDbContext _readDbContext;
     private readonly IDateTimeProvider _dateTimeProvider;
-
-
-    public TagService(ITagRepository tagRepository, IUnitOfWork unitOfWork, IDateTimeProvider dateTimeProvider)
+    
+    public TagsService(
+        ITagsRepository tagsRepository,
+        IReadDbContext readDbContext, 
+        IDateTimeProvider dateTimeProvider)
     {
-        _tagRepository = tagRepository;
-        _unitOfWork = unitOfWork;
+        _tagsRepository = tagsRepository;
+        _readDbContext = readDbContext;
         _dateTimeProvider = dateTimeProvider;
     }
 
     public async Task<ErrorOr<TagsCollectionResponse>> GetAll(CancellationToken cancellationToken)
     {
-        var tags = await _tagRepository.Tags
+        var tags = await _readDbContext.ReadTags
             .Select(TagsProjections.ToResponse())
             .ToListAsync(cancellationToken);
 
@@ -32,7 +34,7 @@ public class TagService : ITagService
 
     public async Task<ErrorOr<TagResponse>> GetById(Guid tagId, CancellationToken cancellationToken)
     {
-        var tag = await _tagRepository.Tags
+        var tag = await _readDbContext.ReadTags
             .Where(t => t.Id == tagId)
             .Select(TagsProjections.ToResponse())
             .SingleOrDefaultAsync(cancellationToken);
@@ -60,23 +62,23 @@ public class TagService : ITagService
 
         var tag = errorOrTag.Value;
 
-        var any = await _tagRepository.Tags.AnyAsync(t => t.Name == tag.Name, cancellationToken);
+        var existedTag = await _tagsRepository.GetByNameAsync(tag.Name, cancellationToken);
 
-        if (any)
+        if (existedTag is not null)
         {
             return Error.Conflict();
         }
 
-        _tagRepository.Tags.Add(tag);
+        await _tagsRepository.AddAsync(tag, cancellationToken);
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _tagsRepository.SaveChangesAsync(cancellationToken);
 
         return tag.ToResponse();
     }
 
     public async Task<ErrorOr<TagResponse>> UpdateTag(Guid tagId, UpdateTagRequest request, CancellationToken cancellationToken)
     {
-        var tag = await _tagRepository.Tags.SingleOrDefaultAsync(t => t.Id == tagId, cancellationToken);
+        var tag = await _tagsRepository.GetByIdAsync(tagId, cancellationToken);
 
         if (tag is null)
         {
@@ -90,23 +92,23 @@ public class TagService : ITagService
             return errorOr.Errors;
         }
 
-        var any = await _tagRepository.Tags.AnyAsync(t => t.Name == tag.Name, cancellationToken);
+        var existedTag = await _tagsRepository.GetByNameAsync(tag.Name, cancellationToken);
 
-        if (any)
+        if (existedTag is not null)
         {
             return Error.Conflict();
         }
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _tagsRepository.SaveChangesAsync(cancellationToken);
 
         return tag.ToResponse();
     }
 
     public async Task<Deleted> DeleteTag(Guid tagId, CancellationToken cancellationToken)
     {
-        await _tagRepository.Tags.Where(t => t.Id == tagId).ExecuteDeleteAsync(cancellationToken);
+        await _tagsRepository.DeleteAsync(tagId, cancellationToken);
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _tagsRepository.SaveChangesAsync(cancellationToken);
 
         return Result.Deleted;
     }

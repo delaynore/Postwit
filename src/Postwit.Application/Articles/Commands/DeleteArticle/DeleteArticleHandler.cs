@@ -1,24 +1,21 @@
 ﻿using ErrorOr;
-using Microsoft.EntityFrameworkCore;
 using Postwit.Application.Abstactions;
 
 namespace Postwit.Application.Articles.Commands.DeleteArticle;
 
 public sealed class DeleteArticleHandler : ICommandHandler<DeleteArticleCommand>
 {
-    private readonly IArticleRepository _articleRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IArticlesRepository _repository;
 
-    public DeleteArticleHandler(IUnitOfWork unitOfWork, IArticleRepository articleRepository)
+    public DeleteArticleHandler(IArticlesRepository repository)
     {
-        _unitOfWork = unitOfWork;
-        _articleRepository = articleRepository;
+        _repository = repository;
     }
 
     public async Task<ErrorOr<Success>> Handle(DeleteArticleCommand command, CancellationToken cancellationToken)
     {
-        await _articleRepository.Articles.Where(x => x.Id == command.ArticleId).ExecuteDeleteAsync(cancellationToken);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _repository.DeleteAsync(command.ArticleId, cancellationToken);
+        await _repository.SaveChangesAsync(cancellationToken);
 
         return Result.Success;
     }

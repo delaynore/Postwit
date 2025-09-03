@@ -7,16 +7,16 @@ namespace Postwit.Application.Articles.Queries.GetArticles;
 
 internal sealed class GetArticlesQueryHandler : IQueryHandler<GetArticlesQuery, ArticleListResponse>
 {
-    private readonly IArticleRepository _repository;
+    private readonly IReadDbContext _readDbContext;
 
-    public GetArticlesQueryHandler(IArticleRepository repository)
+    public GetArticlesQueryHandler(IReadDbContext readDbContext)
     {
-        _repository = repository;
+        _readDbContext = readDbContext;
     }
 
     public async Task<ArticleListResponse> Handle(GetArticlesQuery query, CancellationToken cancellationToken)
     {
-        var records = await _repository.Articles
+        var records = await _readDbContext.ReadArticles
             .Select(ArticlesProjections.ToDto())
             .ToListAsync(cancellationToken);
 

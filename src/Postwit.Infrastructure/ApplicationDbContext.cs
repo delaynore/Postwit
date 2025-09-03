@@ -5,11 +5,15 @@ using Postwit.Infrastructure.Configurations;
 
 namespace Postwit.Infrastructure;
 
-internal sealed class ApplicationDbContext : DbContext, IUnitOfWork, ITagRepository, IArticleRepository
+internal sealed class ApplicationDbContext : DbContext, IWriteDbContext, IReadDbContext
 {
-    public DbSet<Tag> Tags => Set<Tag>();
+    public DbSet<Tag> Tags { get; set; }
 
-    public DbSet<Article> Articles => Set<Article>();
+    public DbSet<Article> Articles { get; set; }
+    
+    public IQueryable<Article> ReadArticles => Articles.AsNoTracking().AsQueryable();
+
+    public IQueryable<Tag> ReadTags => Tags.AsNoTracking().AsQueryable();
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
         : base(options)

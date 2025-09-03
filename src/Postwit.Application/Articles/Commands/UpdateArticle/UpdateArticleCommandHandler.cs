@@ -7,28 +7,24 @@ namespace Postwit.Application.Articles.Commands.UpdateArticle;
 
 public sealed class UpdateArticleCommandHandler : ICommandHandler<UpdateArticleCommand>
 {
-    private readonly IArticleRepository _articleRepository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IArticlesRepository _articlesRepository;
     private readonly IDateTimeProvider _dateTimeProvider;
 
     public UpdateArticleCommandHandler(
-        IArticleRepository articleRepository,
-        IUnitOfWork unitOfWork,
+        IArticlesRepository articlesRepository,
         IDateTimeProvider dateTimeProvider)
     {
-        _articleRepository = articleRepository;
-        _unitOfWork = unitOfWork;
+        _articlesRepository = articlesRepository;
         _dateTimeProvider = dateTimeProvider;
     }
 
     public async Task<ErrorOr<Success>> Handle(UpdateArticleCommand command, CancellationToken cancellationToken)
     {
-        var article = await _articleRepository.Articles.
-            FirstOrDefaultAsync(a => a.Id == command.ArticleId, cancellationToken);
+        var article = await _articlesRepository.GetByIdAsync(command.ArticleId, cancellationToken);
 
         if (article == null)
         {
-            return Error.NotFound();
+            return Error.NotFound("article.not_found");
         }
 
         article.Title = command.Dto.Title;
@@ -37,7 +33,7 @@ public sealed class UpdateArticleCommandHandler : ICommandHandler<UpdateArticleC
         //update slug
         article.UpdatedAtUtc = _dateTimeProvider.UtcNow;
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _articlesRepository.SaveChangesAsync(cancellationToken);
 
         return Result.Success;
     }

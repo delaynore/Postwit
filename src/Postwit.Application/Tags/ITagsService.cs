@@ -1,9 +1,9 @@
 ﻿using ErrorOr;
 using Postwit.Application.Contracts.Tags;
 
-namespace Postwit.Application;
+namespace Postwit.Application.Tags;
 
-public interface ITagService
+public interface ITagsService
 {
     Task<ErrorOr<TagResponse>> GetById(Guid tagId, CancellationToken cancellationToken);
 
