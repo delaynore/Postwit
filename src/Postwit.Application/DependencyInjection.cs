@@ -7,6 +7,7 @@ using Postwit.Application.Articles.Commands.UpdateArticle;
 using Postwit.Application.Articles.Queries.GetArticle;
 using Postwit.Application.Articles.Queries.GetArticles;
 using Postwit.Application.Contracts.Articles;
+using Postwit.Application.Tags;
 
 namespace Postwit.Application;
 
@@ -14,7 +15,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<ITagService, TagService>();
+        services.AddScoped<ITagsService, TagsService>();
 
         services.AddScoped<ICommandHandler<PublishArticleCommand, Guid>, PublishArticleHandler>();
         services.AddScoped<ICommandHandler<PublishDraftedArticleCommand>, PublishDraftedArticleCommandHandler>();

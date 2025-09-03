@@ -1,5 +1,4 @@
-﻿using ErrorOr;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Postwit.Application.Abstactions;
 using Postwit.Application.Articles.Commands.DeleteArticle;
 using Postwit.Application.Articles.Commands.PublishArticle;
@@ -27,7 +26,7 @@ public sealed class ArticlesController : ControllerBase
     
     [HttpGet("{idOrSlug}")]
     public async Task<IResult> GetArticle([FromRoute] string idOrSlug,
-        [FromServices] IQueryHandler<GetArticleQuery, ErrorOr<ArticleDto>> handler,
+        [FromServices] IQueryHandler<GetArticleQuery, ErrorOr.ErrorOr<ArticleDto>> handler,
         CancellationToken cancellationToken)
     {
         var result = await handler.Handle(new GetArticleQuery(idOrSlug), cancellationToken);

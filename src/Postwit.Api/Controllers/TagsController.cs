@@ -1,7 +1,6 @@
-﻿using ErrorOr;
-using Microsoft.AspNetCore.Mvc;
-using Postwit.Application;
+﻿using Microsoft.AspNetCore.Mvc;
 using Postwit.Application.Contracts.Tags;
+using Postwit.Application.Tags;
 
 namespace Postwit.Api.Controllers;
 
@@ -9,9 +8,9 @@ namespace Postwit.Api.Controllers;
 [Route("api/tags")]
 public sealed class TagsController : ControllerBase
 {
-    private readonly ITagService _tagService;
+    private readonly ITagsService _tagService;
 
-    public TagsController(ITagService tagService)
+    public TagsController(ITagsService tagService)
     {
         _tagService = tagService;
     }

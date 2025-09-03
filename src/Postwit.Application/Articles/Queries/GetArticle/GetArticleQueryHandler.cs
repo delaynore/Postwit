@@ -8,16 +8,16 @@ namespace Postwit.Application.Articles.Queries.GetArticle;
 
 internal sealed class GetArticleQueryHandler : IQueryHandler<GetArticleQuery, ErrorOr<ArticleDto>>
 {
-    private readonly IArticleRepository _repository;
+    private readonly IReadDbContext _readDbContext;
     
-    public GetArticleQueryHandler(IArticleRepository repository)
+    public GetArticleQueryHandler(IReadDbContext readDbContext)
     {
-        _repository = repository;
+        _readDbContext = readDbContext;
     }
     
     public async Task<ErrorOr<ArticleDto>> Handle(GetArticleQuery query, CancellationToken cancellationToken)
     {
-        var dbQuery = _repository.Articles.AsQueryable();
+        var dbQuery = _readDbContext.ReadArticles;
 
         dbQuery = Guid.TryParse(query.IdOrSlug, out var id) 
             ? dbQuery.Where(a => a.Id == id) 
