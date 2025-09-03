@@ -32,6 +32,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{02EA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.DateTimeProvider", "src\Postwit.DateTimeProvider\Postwit.DateTimeProvider.csproj", "{DB789F85-8B5C-4E17-AFF6-DB99193F4CAE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5C0B673D-C3A9-48E8-BB8B-A3473C93F101}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Postwit.Infrastructure.Tests", "tests\Postwit.Infrastructure.Tests\Postwit.Infrastructure.Tests.csproj", "{B906ED2B-040D-4154-B1DC-E4D2373DFFD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +66,10 @@ Global
 		{DB789F85-8B5C-4E17-AFF6-DB99193F4CAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB789F85-8B5C-4E17-AFF6-DB99193F4CAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB789F85-8B5C-4E17-AFF6-DB99193F4CAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B906ED2B-040D-4154-B1DC-E4D2373DFFD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B906ED2B-040D-4154-B1DC-E4D2373DFFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B906ED2B-040D-4154-B1DC-E4D2373DFFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B906ED2B-040D-4154-B1DC-E4D2373DFFD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +81,7 @@ Global
 		{78E46F0A-B3B3-4140-8F29-F65058DAB12E} = {B5F8D160-76D3-4534-BAFE-7BD90BEFB137}
 		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {36D591C7-65C7-A0D1-1CBC-10CDE441BDC8}
 		{DB789F85-8B5C-4E17-AFF6-DB99193F4CAE} = {B5F8D160-76D3-4534-BAFE-7BD90BEFB137}
+		{B906ED2B-040D-4154-B1DC-E4D2373DFFD0} = {5C0B673D-C3A9-48E8-BB8B-A3473C93F101}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CD45AE38-EEAE-47D9-8579-79DB47D7A356}
